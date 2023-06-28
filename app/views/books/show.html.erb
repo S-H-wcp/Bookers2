@@ -1,0 +1,35 @@
+<div>
+  <%= flash[:notice] %>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'books/list.html.erb', user: @user %>
+    </div>
+    <div class="col-md-8 offset-md-1">
+      <h1>Book detail</h1>
+      <table class="table">
+        <tr>
+          <td>
+            <div>
+              <%=link_to  user_path(@book.user.id) do %>
+              <%= image_tag @book.user.get_profile_image(100,100) %>
+              <p><%= @book.user.name %></p>
+              <% end %>
+            </div>
+          </td>
+
+        <td><%=link_to @book.title, book_path(@book.user.id) %></td>
+        <td><%= @book.body %></td>
+
+        <% if @book.user == current_user %>
+            <td><%= link_to "Edit", edit_book_path(@book.id), class: "btn btn-success" %></td>
+            <td><%= link_to "Destroy", book_path(@book.id), method: :delete,"data-confirm" => "Are you sure?", class:"btn btn-danger" %></td>
+        <% end %>
+        </tr>
+      </table>
+      </div>
+  </div>
+</div>
+
